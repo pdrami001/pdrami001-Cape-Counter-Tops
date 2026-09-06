@@ -1,4 +1,5 @@
-import { ArrowUpRight, MapPin } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, LockKeyhole, MapPin } from "lucide-react";
 import { siteConfig } from "@/lib/constants";
 import { WhatsAppButton } from "@/components/shared/whatsapp-button";
 
@@ -21,7 +22,7 @@ export function Footer() {
           <WhatsAppButton variant="light" className="w-full sm:w-auto">Chat on WhatsApp <ArrowUpRight size={15} /></WhatsAppButton>
         </div>
       </div>
-      <div className="border-t border-white/10 px-5 py-5 text-center text-xs text-[#8d8c84] sm:px-8">© {new Date().getFullYear()} {siteConfig.name}. Brand details are ready to be customised.</div>
+      <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 px-5 py-5 text-center text-xs text-[#8d8c84] sm:flex-row sm:px-8 sm:text-left"><span>© {new Date().getFullYear()} {siteConfig.name}. Brand details are ready to be customised.</span><Link href="/admin/login" className="inline-flex items-center gap-1.5 text-[#77766f] transition hover:text-[#c6a77a]"><LockKeyhole size={12} aria-hidden="true" /> Admin Login</Link></div>
     </footer>
   );
 }
