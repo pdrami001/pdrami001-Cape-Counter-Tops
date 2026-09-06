@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -23,7 +23,7 @@ export function WhatsAppButton({ message, children, className, variant = "dark" 
         className,
       )}
     >
-      <MessageCircle size={17} aria-hidden="true" />
+      <FaWhatsapp size={17} aria-hidden="true" />
       {children}
     </a>
   );
@@ -35,10 +35,10 @@ export function FloatingWhatsApp() {
       href={createWhatsAppUrl()}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with StoneCraft Surfaces on WhatsApp"
+      aria-label="Chat with us on WhatsApp"
       className="fixed bottom-5 right-5 z-40 flex size-14 items-center justify-center rounded-full bg-[#2c9c68] text-white shadow-xl shadow-black/20 transition hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c6a77a] sm:bottom-7 sm:right-7"
     >
-      <MessageCircle size={25} aria-hidden="true" />
+      <FaWhatsapp size={25} aria-hidden="true" />
     </a>
   );
 }

@@ -1,4 +1,4 @@
-# StoneCraft Surfaces
+# Cape Counter Tops
 
 Premium granite, quartz and sintered stone fabrication and installation catalogue. The public site is backed by Supabase products, while a server-protected admin workspace manages availability, featured status and product content.
 
@@ -98,7 +98,7 @@ The build does not require a live Supabase connection. A real project URL/key ar
 
 ## Replacing Branding And Contact Details
 
-Update `src/lib/constants.ts` to change the editable placeholder brand name, navigation and WhatsApp number. The current number is `27710779244`, and every link is generated through `src/lib/whatsapp.ts` with URL-encoded messages. Replace the CSS-based sample surface treatments with supplied portfolio images when ready. No fake address, email or social profile is included.
+Update `src/lib/constants.ts` to change the editable placeholder brand name, navigation and WhatsApp number. The current number is `27816092933`, and every link is generated through `src/lib/whatsapp.ts` with URL-encoded messages. Replace the CSS-based sample surface treatments with supplied portfolio images when ready. No fake address, email or social profile is included.
 
 ## Troubleshooting
 

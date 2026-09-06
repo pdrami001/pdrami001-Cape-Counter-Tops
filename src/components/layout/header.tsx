@@ -1,6 +1,8 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { siteConfig } from "@/lib/constants";
 import { WhatsAppButton } from "@/components/shared/whatsapp-button";
@@ -11,13 +13,9 @@ export function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-30 border-b border-white/10 bg-[#20211f]/95 text-[#f7f4ee] backdrop-blur-md">
       <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
-        <a href="#home" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="flex size-9 items-center justify-center border border-[#c6a77a] text-sm font-bold text-[#c6a77a]">S</span>
-          <span className="leading-none">
-            <span className="block font-serif text-lg tracking-wide">StoneCraft</span>
-            <span className="mt-1 block text-[9px] uppercase tracking-[0.26em] text-[#bcb8ae]">Surfaces</span>
-          </span>
-        </a>
+        <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)} aria-label="Cape Counter Tops home">
+          <Image src="/cape-counter-tops-logo.jpeg" alt="Cape Counter Tops" width={190} height={52} priority className="h-[50px] w-auto shrink-0 object-contain sm:h-[64px]" />
+        </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary navigation">
           {siteConfig.navigation.map((item) => (

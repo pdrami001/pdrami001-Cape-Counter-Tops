@@ -1,9 +1,9 @@
 export const siteConfig = {
-  name: "StoneCraft Surfaces",
+  name: "Cape Counter Tops",
   eyebrow: "Cape Town stone specialists",
   description:
     "Premium granite, quartz and sintered stone fabrication and installation for kitchens, bathrooms and commercial spaces.",
-  whatsappNumber: "27710779244",
+  whatsappNumber: "27816092933",
   whatsappDefaultMessage:
     "Hi, I would like to request a quote for a granite, quartz, or sintered stone project.",
   navigation: [

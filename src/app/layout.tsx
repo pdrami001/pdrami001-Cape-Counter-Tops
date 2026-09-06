@@ -3,14 +3,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "StoneCraft Surfaces | Granite, Quartz & Sintered Stone",
-    template: "%s | StoneCraft Surfaces",
+    default: "Cape Counter Tops | Granite, Quartz & Sintered Stone",
+    template: "%s | Cape Counter Tops",
   },
-  description: "Premium granite, quartz and sintered stone fabrication and installation for kitchens, bathrooms and commercial spaces.",
+  description: "Cape Counter Tops supplies, fabricates and installs premium granite, quartz and sintered stone countertops and surfaces for residential and commercial spaces.",
   keywords: ["granite countertops", "quartz surfaces", "sintered stone", "stone fabrication", "Cape Town"],
   openGraph: {
-    title: "StoneCraft Surfaces | Timeless stone, precisely made",
-    description: "Premium stone surfaces for residential and commercial spaces.",
+    title: "Cape Counter Tops | Timeless stone, precisely made",
+    description: "Cape Counter Tops supplies, fabricates and installs premium granite, quartz and sintered stone countertops and surfaces.",
     type: "website",
   },
 };
