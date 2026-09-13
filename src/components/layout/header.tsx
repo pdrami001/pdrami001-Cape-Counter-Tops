@@ -14,7 +14,7 @@ export function Header() {
     <header className="fixed inset-x-0 top-0 z-30 border-b border-white/10 bg-[#20211f]/95 text-[#f7f4ee] backdrop-blur-md">
       <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
         <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)} aria-label="Cape Counter Tops home">
-          <Image src="/cape-counter-tops-logo.jpeg" alt="Cape Counter Tops" width={190} height={52} priority className="h-[50px] w-auto shrink-0 object-contain sm:h-[64px]" />
+          <Image src="/cape-counter-tops-logo.png" alt="Cape Counter Tops" width={190} height={52} priority className="h-[50px] w-auto shrink-0 object-contain sm:h-[64px]" />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary navigation">
