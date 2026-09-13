@@ -21,7 +21,7 @@ export default async function ProjectsPage() {
           <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#a17e4f]">Our Work</p>
           <h1 className="mt-4 font-serif text-5xl leading-none sm:text-6xl">Spaces we&apos;ve transformed.</h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-[#5f5a52]">
-            Explore spaces transformed by Cape Counter Tops, from seamless kitchens to striking feature walls and commercial stone installations.
+            Explore spaces transformed by Cape Counter Tops, from seamless kitchens to striking bathroom vanities and commercial stone installations.
           </p>
         </section>
 

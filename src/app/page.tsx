@@ -11,7 +11,7 @@ import { getProducts } from "@/lib/products";
 import { siteConfig } from "@/lib/constants";
 
 const services = [
-  ["Kitchen Countertops", Ruler], ["Bathroom Vanities", Gem], ["Feature Walls", Layers3], ["Fireplace Cladding", Sparkles],
+  ["Kitchen Countertops", Ruler], ["Bathroom Vanities", Gem], ["Vanity Units", Layers3], ["Fireplace Cladding", Sparkles],
   ["Reception Counters", Building2], ["Commercial Installations", ShieldCheck], ["Custom Fabrication", Hammer], ["Professional Installation", Check],
 ] as const;
 
