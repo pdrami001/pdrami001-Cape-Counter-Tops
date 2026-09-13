@@ -35,6 +35,62 @@ export type Database = {
         };
         Update: Partial<Database["public"]["Tables"]["products"]["Insert"]>;
       };
+      projects: {
+        Relationships: [{ foreignKeyName: "project_images_project_id_fkey"; columns: ["id"]; referencedRelation: "projects"; referencedColumns: ["id"] }];
+        Row: {
+          id: string;
+          title: string;
+          slug: string;
+          description: string | null;
+          project_type: string;
+          material: string | null;
+          colour: string | null;
+          finish: string | null;
+          location: string | null;
+          featured: boolean;
+          completed_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          slug: string;
+          description?: string | null;
+          project_type: string;
+          material?: string | null;
+          colour?: string | null;
+          finish?: string | null;
+          location?: string | null;
+          featured?: boolean;
+          completed_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["projects"]["Insert"]>;
+      };
+      project_images: {
+        Relationships: [{ foreignKeyName: "project_images_project_id_fkey"; columns: ["project_id"]; referencedRelation: "projects"; referencedColumns: ["id"] }];
+        Row: {
+          id: string;
+          project_id: string;
+          image_url: string;
+          storage_path: string | null;
+          alt_text: string | null;
+          display_order: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_id: string;
+          image_url: string;
+          storage_path?: string | null;
+          alt_text?: string | null;
+          display_order?: number;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["project_images"]["Insert"]>;
+      };
       admin_users: {
         Relationships: [];
         Row: { user_id: string; created_at: string };

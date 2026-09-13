@@ -1,9 +1,12 @@
-import { ArrowDownRight, ArrowUpRight, Building2, Check, Gem, Hammer, Layers3, Ruler, ShieldCheck, Sparkles } from "lucide-react";
+﻿import { ArrowDownRight, ArrowUpRight, Building2, Check, Gem, Hammer, Layers3, Ruler, ShieldCheck, Sparkles } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ProductGrid } from "@/components/products/product-grid";
 import { FloatingWhatsApp, WhatsAppButton } from "@/components/shared/whatsapp-button";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { getFeaturedProjects } from "@/lib/projects";
 import { getProducts } from "@/lib/products";
 import { siteConfig } from "@/lib/constants";
 
@@ -15,18 +18,155 @@ const services = [
 const materials = [
   { name: "Granite", eyebrow: "Natural character", copy: "Distinctive movement, enduring strength and a surface that makes every installation one of a kind.", texture: "bg-[radial-gradient(circle_at_22%_30%,#beb7a9_0_1px,transparent_1px),radial-gradient(circle_at_68%_62%,#7a766c_0_1px,transparent_1px)] bg-[length:19px_19px] bg-[#5b5b53]" },
   { name: "Quartz", eyebrow: "Quiet performance", copy: "Non-porous, low-maintenance and beautifully consistent for contemporary kitchens and bathrooms.", texture: "bg-[linear-gradient(125deg,transparent_0_48%,#f2ede3_49%_50%,transparent_51%_100%)] bg-[#d0c9bc] bg-[length:38px_38px]" },
-  { name: "Sintered Stone", eyebrow: "Advanced surfaces", copy: "Exceptional resistance to heat, scratches, stains and UV exposure with a refined architectural finish.", texture: "bg-[linear-gradient(145deg,transparent_0_46%,#a8a094_47%_48%,transparent_49%_100%)] bg-[#e1dcd2] bg-[length:58px_58px]" },
+  { name: "Sintered Stone", eyebrow: "Advanced surfaces", copy: "Exceptional resistance to heat, scratches, stains and UV exposure with a refined architectural finish.", texture: "bg-[linear-gradient(145deg,transparent_0_46%,#a8a094_47%_48%,transparent_49%_100%)] bg-[#e1dcd2] bg-[length:58px_38px]" },
 ];
 
 export default async function Home() {
   const products = await getProducts();
-  return <><Header /><main id="home">
-    <section className="relative overflow-hidden bg-[#20211f] pt-[76px] text-[#f7f4ee]"><div className="absolute inset-0 opacity-30 [background-image:linear-gradient(120deg,transparent_30%,#b8b1a4_31%,transparent_32%),linear-gradient(20deg,transparent_45%,#807d74_46%,transparent_47%)] [background-size:460px_300px,620px_420px]" /><div className="relative mx-auto grid min-h-[680px] max-w-7xl items-end gap-12 px-5 pb-16 pt-20 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:pb-24"><div className="max-w-3xl"><p className="mb-7 text-[11px] font-bold uppercase tracking-[0.28em] text-[#c6a77a]">{siteConfig.eyebrow}</p><h1 className="max-w-3xl font-serif text-5xl leading-[0.98] sm:text-7xl lg:text-[6.2rem]">Transforming spaces with <em className="text-[#c6a77a]">timeless beauty.</em></h1><p className="mt-8 max-w-xl text-base leading-7 text-[#c9c4ba] sm:text-lg">Premium granite, quartz and sintered stone, precisely fabricated and installed for the way you live and work.</p><div className="mt-9 flex flex-col gap-3 sm:flex-row"><WhatsAppButton variant="light">Request a free quote <ArrowUpRight size={16} /></WhatsAppButton><a href="#products" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-semibold text-[#f7f4ee] transition hover:border-white">Explore surfaces <ArrowDownRight size={16} /></a></div></div><div className="hidden justify-self-end lg:block"><div className="relative h-[390px] w-[310px] border border-white/20 p-4"><div className="h-full w-full bg-[radial-gradient(circle_at_24%_28%,#bcb7aa_0_1px,transparent_1px),radial-gradient(circle_at_72%_62%,#6f716a_0_1px,transparent_1px)] bg-[length:22px_22px] bg-[#5a5d57]" /><p className="absolute -bottom-5 -left-6 bg-[#c6a77a] px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] text-[#20211f]">Made for living</p></div></div></div></section>
-    <section className="border-b border-[#dcd8cf] bg-[#f7f4ee]"><div className="mx-auto grid max-w-7xl gap-5 px-5 py-8 sm:grid-cols-3 sm:px-8 lg:px-10"><div><p className="font-serif text-xl">01 / Material clarity</p><p className="mt-2 text-sm leading-6 text-[#716e66]">A considered range of natural and engineered surfaces.</p></div><div><p className="font-serif text-xl">02 / Exact fabrication</p><p className="mt-2 text-sm leading-6 text-[#716e66]">Measured, cut and finished around your project.</p></div><div><p className="font-serif text-xl">03 / Lasting installation</p><p className="mt-2 text-sm leading-6 text-[#716e66]">A clean, careful finish from first cut to final handover.</p></div></div></section>
-    <section id="materials" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-10 lg:py-32"><SectionHeading eyebrow="The material library" title="A surface for every point of view." description="From expressive natural stone to quiet, high-performance slabs, we help you choose a material that feels right and works hard." /><div className="mt-14 grid gap-5 md:grid-cols-3">{materials.map((material) => <div key={material.name} className="group"><div className={`aspect-[0.82] overflow-hidden ${material.texture}`} /><div className="border-b border-[#d7d2c8] py-5"><p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#a17e4f]">{material.eyebrow}</p><h3 className="mt-2 font-serif text-3xl">{material.name}</h3><p className="mt-3 text-sm leading-6 text-[#716e66]">{material.copy}</p></div></div>)}</div></section>
-    <section id="products" className="bg-[#ebe7df] px-5 py-24 sm:px-8 lg:px-10 lg:py-32"><div className="mx-auto max-w-7xl"><SectionHeading eyebrow="Available now" title="The current collection." description="Browse our live catalogue and enquire about the surfaces that catch your eye. Availability is updated by our team." /><div className="mt-12"><ProductGrid products={products} /></div></div></section>
-    <section id="services" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-10 lg:py-32"><div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr]"><SectionHeading eyebrow="From slab to space" title="Craftsmanship you can feel." description="Our team brings material knowledge, precision fabrication and calm project coordination to every installation." /><div className="grid grid-cols-1 border-t border-[#d7d2c8] sm:grid-cols-2">{services.map(([name, Icon]) => <div key={name} className="flex items-center gap-4 border-b border-[#d7d2c8] py-5"><span className="flex size-10 items-center justify-center rounded-full bg-[#e8e2d7] text-[#a17e4f]"><Icon size={18} aria-hidden="true" /></span><span className="text-sm font-semibold">{name}</span></div>)}</div></div></section>
-    <section id="about" className="bg-[#d8d1c4] px-5 py-24 sm:px-8 lg:px-10 lg:py-32"><div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1fr] lg:items-center"><div className="border border-[#aaa194] p-4"><div className="flex min-h-[330px] items-end bg-[#bbb3a5] p-7 sm:min-h-[420px]"><div><p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#575247]">Our promise</p><p className="mt-3 max-w-sm font-serif text-4xl leading-tight text-[#272824]">The details are where the difference lives.</p></div></div></div><div><SectionHeading eyebrow="Why Cape Counter Tops" title="Quietly exact. Thoroughly considered." description="We are committed to exceptional quality, precision workmanship and outstanding customer service. Every project is completed with attention to detail and a passion for excellence." /><div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-4 text-sm text-[#575247]">{["Premium quality materials", "Expert craftsmanship", "Custom designs", "Competitive pricing", "Reliable service", "Residential & commercial"].map((item) => <div key={item} className="flex items-start gap-2"><Check size={16} className="mt-0.5 text-[#a17e4f]" />{item}</div>)}</div></div></div></section>
-    <section id="contact" className="bg-[#20211f] px-5 py-24 text-[#f7f4ee] sm:px-8 lg:px-10 lg:py-32"><div className="mx-auto flex max-w-7xl flex-col gap-8 sm:flex-row sm:items-end sm:justify-between"><SectionHeading light eyebrow="Your next surface" title="Ready to transform your space?" description="Tell us about your project and we will help you find the right stone solution." /><WhatsAppButton variant="light" className="shrink-0">Request a free quote <ArrowUpRight size={16} /></WhatsAppButton></div></section>
-  </main><Footer /><FloatingWhatsApp /></>;
+  const featuredProjects = await getFeaturedProjects(6);
+
+  return (
+    <>
+      <Header />
+      <main id="home">
+        <section className="relative overflow-hidden bg-[#20211f] pt-[76px] text-[#f7f4ee]">
+          <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(120deg,transparent_30%,#b8b1a4_31%,transparent_32%),linear-gradient(20deg,transparent_45%,#807d74_46%,transparent_47%)] [background-size:460px_300px,620px_420px]" />
+          <div className="relative mx-auto grid min-h-[680px] max-w-7xl items-end gap-12 px-5 pb-16 pt-20 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:pb-24">
+            <div className="max-w-3xl">
+              <p className="mb-7 text-[11px] font-bold uppercase tracking-[0.28em] text-[#c6a77a]">{siteConfig.eyebrow}</p>
+              <h1 className="max-w-3xl font-serif text-5xl leading-[0.98] sm:text-7xl lg:text-[6.2rem]">Transforming spaces with <em className="text-[#c6a77a]">timeless beauty.</em></h1>
+              <p className="mt-8 max-w-xl text-base leading-7 text-[#c9c4ba] sm:text-lg">Premium granite, quartz and sintered stone, precisely fabricated and installed for the way you live and work.</p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <WhatsAppButton variant="light">Request a free quote <ArrowUpRight size={16} /></WhatsAppButton>
+                <a href="#products" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-semibold text-[#f7f4ee] transition hover:border-white">Explore surfaces <ArrowDownRight size={16} /></a>
+              </div>
+            </div>
+            <div className="hidden justify-self-end lg:block">
+              <div className="relative h-[390px] w-[310px] border border-white/20 p-4">
+                <div className="h-full w-full bg-[radial-gradient(circle_at_24%_28%,#bcb7aa_0_1px,transparent_1px),radial-gradient(circle_at_72%_62%,#6f716a_0_1px,transparent_1px)] bg-[length:22px_22px] bg-[#5a5d57]" />
+                <p className="absolute -bottom-5 -left-6 bg-[#c6a77a] px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] text-[#20211f]">Made for living</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#dcd8cf] bg-[#f7f4ee]">
+          <div className="mx-auto grid max-w-7xl gap-5 px-5 py-8 sm:grid-cols-3 sm:px-8 lg:px-10">
+            <div>
+              <p className="font-serif text-xl">01 / Material clarity</p>
+              <p className="mt-2 text-sm leading-6 text-[#716e66]">A considered range of natural and engineered surfaces.</p>
+            </div>
+            <div>
+              <p className="font-serif text-xl">02 / Exact fabrication</p>
+              <p className="mt-2 text-sm leading-6 text-[#716e66]">Measured, cut and finished around your project.</p>
+            </div>
+            <div>
+              <p className="font-serif text-xl">03 / Lasting installation</p>
+              <p className="mt-2 text-sm leading-6 text-[#716e66]">A clean, careful finish from first cut to final handover.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#f3efe9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeading eyebrow="Our Work" title="Spaces we've transformed." description="A selection of completed Cape Counter Tops projects designed to inspire your next space." />
+            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {featuredProjects.map((project) => {
+                const coverImage = project.project_images?.[0]?.image_url;
+                return (
+                  <Link key={project.id} href={`/projects/${project.slug}`} className="group block overflow-hidden border border-[#d8d2c8] bg-[#f7f4ee] shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                    <div className="relative aspect-[1.15] overflow-hidden bg-[#d9d1c5]">
+                      {coverImage ? (
+                        <Image src={coverImage} alt={project.title} fill unoptimized className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />
+                      ) : (
+                        <div className="flex h-full items-center justify-center text-xs uppercase tracking-[0.2em] text-[#716e66]">Project</div>
+                      )}
+                    </div>
+                    <div className="space-y-2 p-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#a17e4f]">{project.project_type}</p>
+                      <h3 className="font-serif text-2xl leading-tight text-[#272824]">{project.title}</h3>
+                      <div className="text-sm text-[#5f5a52]">
+                        {project.material ? <p>{project.material}</p> : null}
+                        {project.location ? <p>{project.location}</p> : null}
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="mt-10 text-center">
+              <Link href="/projects" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#22211f] px-5 text-sm font-semibold text-[#20211f] transition hover:bg-[#20211f] hover:text-[#f7f4ee]">VIEW ALL PROJECTS <ArrowUpRight size={16} /></Link>
+            </div>
+          </div>
+        </section>
+
+        <section id="materials" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+          <SectionHeading eyebrow="The material library" title="A surface for every point of view." description="From expressive natural stone to quiet, high-performance slabs, we help you choose a material that feels right and works hard." />
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
+            {materials.map((material) => (
+              <div key={material.name} className="group">
+                <div className={`aspect-[0.82] overflow-hidden ${material.texture}`} />
+                <div className="border-b border-[#d7d2c8] py-5">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#a17e4f]">{material.eyebrow}</p>
+                  <h3 className="mt-2 font-serif text-3xl">{material.name}</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#716e66]">{material.copy}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="products" className="bg-[#ebe7df] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeading eyebrow="Available now" title="The current collection." description="Browse our live catalogue and enquire about the surfaces that catch your eye. Availability is updated by our team." />
+            <div className="mt-12"><ProductGrid products={products} /></div>
+          </div>
+        </section>
+
+        <section id="services" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+          <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr]">
+            <SectionHeading eyebrow="From slab to space" title="Craftsmanship you can feel." description="Our team brings material knowledge, precision fabrication and calm project coordination to every installation." />
+            <div className="grid grid-cols-1 border-t border-[#d7d2c8] sm:grid-cols-2">
+              {services.map(([name, Icon]) => (
+                <div key={name} className="flex items-center gap-4 border-b border-[#d7d2c8] py-5">
+                  <span className="flex size-10 items-center justify-center rounded-full bg-[#e8e2d7] text-[#a17e4f]"><Icon size={18} aria-hidden="true" /></span>
+                  <span className="text-sm font-semibold">{name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="bg-[#d8d1c4] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+            <div className="border border-[#aaa194] p-4">
+              <div className="flex min-h-[330px] items-end bg-[#bbb3a5] p-7 sm:min-h-[420px]">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#575247]">Our promise</p>
+                  <p className="mt-3 max-w-sm font-serif text-4xl leading-tight text-[#272824]">The details are where the difference lives.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <SectionHeading eyebrow="Why Cape Counter Tops" title="Quietly exact. Thoroughly considered." description="We are committed to exceptional quality, precision workmanship and outstanding customer service. Every project is completed with attention to detail and a passion for excellence." />
+              <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-4 text-sm text-[#575247]">
+                {["Premium quality materials", "Expert craftsmanship", "Custom designs", "Competitive pricing", "Reliable service", "Residential & commercial"].map((item) => (
+                  <div key={item} className="flex items-start gap-2"><Check size={16} className="mt-0.5 text-[#a17e4f]" />{item}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="bg-[#20211f] px-5 py-24 text-[#f7f4ee] sm:px-8 lg:px-10 lg:py-32">
+          <div className="mx-auto flex max-w-7xl flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHeading light eyebrow="Your next surface" title="Ready to transform your space?" description="Tell us about your project and we will help you find the right stone solution." />
+            <WhatsAppButton variant="light" className="shrink-0">Request a free quote <ArrowUpRight size={16} /></WhatsAppButton>
+          </div>
+        </section>
+      </main>
+      <Footer />
+      <FloatingWhatsApp />
+    </>
+  );
 }
