@@ -2,17 +2,20 @@ export const siteConfig = {
   name: "Cape Counter Tops",
   eyebrow: "Cape Town stone specialists",
   description:
-    "Premium granite, quartz and sintered stone fabrication and installation for kitchens, bathrooms and commercial spaces.",
+    "Granite, quartz and sintered stone surfaces for kitchens, bathrooms and commercial spaces in Cape Town and surrounding areas.",
+  email: "capecountertops1@gmail.com",
   whatsappNumber: "27816092933",
   whatsappDefaultMessage:
     "Hi, I would like to request a quote for a granite, quartz, or sintered stone project.",
+  facebookUrl: "https://www.facebook.com/share/1Jf6gXG8SH/",
+  serviceArea: "Cape Town and surrounding areas",
   navigation: [
-    { label: "Home", href: "#home" },
-    { label: "Materials", href: "#materials" },
-    { label: "Services", href: "#services" },
-    { label: "About", href: "#about" },
+    { label: "Home", href: "/" },
+    { label: "Materials", href: "/#materials" },
+    { label: "Services", href: "/#services" },
     { label: "Our Work", href: "/projects" },
-    { label: "Contact", href: "#contact" },
+    { label: "About", href: "/#about" },
+    { label: "Contact", href: "/#contact" },
   ],
 } as const;
 

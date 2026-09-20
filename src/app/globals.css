@@ -3,6 +3,16 @@
 :root {
   --background: #f7f4ee;
   --foreground: #272824;
+  --muted: #5f5a52;
+  --muted-strong: #4d4a45;
+  --panel: #fbfaf7;
+  --panel-soft: #f0ece4;
+  --line: #d9d1c5;
+  --navy: #20211f;
+  --navy-soft: #2b2d2b;
+  --stone: #c6a77a;
+  --stone-deep: #9d7d52;
+  --header-height: 72px;
 }
 
 @theme inline {
@@ -12,12 +22,36 @@
   --font-serif: Georgia, "Times New Roman", serif;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Avenir Next", "Segoe UI", sans-serif;
   letter-spacing: 0;
+  text-rendering: optimizeLegibility;
 }
 
-::selection { background: #c6a77a; color: #20211f; }
+main, section, header, footer, nav {
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+
+::selection {
+  background: rgba(198, 167, 122, 0.35);
+  color: var(--navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
