@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <circle cx="40" cy="40" r="35" stroke="#D4AD76" stroke-width="1.5"/>
+  <circle cx="40" cy="40" r="29" stroke="#B8915E" stroke-opacity=".55" stroke-width=".7"/>
+  <text x="40" y="47" fill="#D4AD76" font-family="Georgia,serif" font-size="19" text-anchor="middle">CCT</text>
+</svg>

@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { uploadStorageImage } from "@/lib/images";
 import { LoaderCircle, Upload, X } from "lucide-react";
 import Image from "next/image";
 import { type ChangeEvent, type FormEvent, useState } from "react";
@@ -137,16 +138,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
       for (const [index, file] of queuedFiles.entries()) {
         const extension = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
         const storagePath = `projects/${projectData.id}/${crypto.randomUUID()}.${extension}`;
-        const upload = await supabase.storage.from("project-images").upload(storagePath, file, {
-          contentType: file.type || "image/jpeg",
-          upsert: false,
-        });
-
-        if (upload.error) {
-          throw new Error(`Image upload failed: ${upload.error.message}`);
-        }
-
-        const publicUrl = supabase.storage.from("project-images").getPublicUrl(storagePath).data.publicUrl;
+        const publicUrl = await uploadStorageImage(supabase, "project-images", storagePath, file);
         const { error: imageError } = await supabase.from("project_images").insert({
           project_id: projectData.id,
           image_url: publicUrl,
@@ -187,7 +179,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
             required
             value={values.title}
             onChange={(event) => update("title", event.target.value)}
-            className="mt-2 h-11 w-full border border-[#d0cbc1] bg-white px-3 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 h-11 w-full border border-line bg-surface px-3 font-normal outline-none focus:border-gold"
           />
         </label>
 
@@ -196,7 +188,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
           <select
             value={values.project_type}
             onChange={(event) => update("project_type", event.target.value as Project["project_type"])}
-            className="mt-2 h-11 w-full border border-[#d0cbc1] bg-white px-3 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 h-11 w-full border border-line bg-surface px-3 font-normal outline-none focus:border-gold"
           >
             {projectTypeOptions.map((option) => (
               <option key={option.value} value={option.value}>{option.label}</option>
@@ -210,7 +202,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
             value={values.slug}
             onChange={(event) => update("slug", event.target.value)}
             placeholder={slugify(values.title) || "modern-kitchen"}
-            className="mt-2 h-11 w-full border border-[#d0cbc1] bg-white px-3 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 h-11 w-full border border-line bg-surface px-3 font-normal outline-none focus:border-gold"
           />
         </label>
 
@@ -219,7 +211,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
           <input
             value={values.material}
             onChange={(event) => update("material", event.target.value)}
-            className="mt-2 h-11 w-full border border-[#d0cbc1] bg-white px-3 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 h-11 w-full border border-line bg-surface px-3 font-normal outline-none focus:border-gold"
           />
         </label>
 
@@ -228,7 +220,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
           <input
             value={values.colour}
             onChange={(event) => update("colour", event.target.value)}
-            className="mt-2 h-11 w-full border border-[#d0cbc1] bg-white px-3 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 h-11 w-full border border-line bg-surface px-3 font-normal outline-none focus:border-gold"
           />
         </label>
 
@@ -237,7 +229,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
           <input
             value={values.finish}
             onChange={(event) => update("finish", event.target.value)}
-            className="mt-2 h-11 w-full border border-[#d0cbc1] bg-white px-3 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 h-11 w-full border border-line bg-surface px-3 font-normal outline-none focus:border-gold"
           />
         </label>
 
@@ -246,7 +238,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
           <input
             value={values.location}
             onChange={(event) => update("location", event.target.value)}
-            className="mt-2 h-11 w-full border border-[#d0cbc1] bg-white px-3 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 h-11 w-full border border-line bg-surface px-3 font-normal outline-none focus:border-gold"
           />
         </label>
 
@@ -256,7 +248,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
             rows={5}
             value={values.description}
             onChange={(event) => update("description", event.target.value)}
-            className="mt-2 w-full resize-y border border-[#d0cbc1] bg-white px-3 py-2 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 w-full resize-y border border-line bg-surface px-3 py-2 font-normal outline-none focus:border-gold"
           />
         </label>
 
@@ -266,7 +258,7 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
             type="date"
             value={values.completed_at}
             onChange={(event) => update("completed_at", event.target.value)}
-            className="mt-2 h-11 w-full border border-[#d0cbc1] bg-white px-3 font-normal outline-none focus:border-[#9d784a]"
+            className="mt-2 h-11 w-full border border-line bg-surface px-3 font-normal outline-none focus:border-gold"
           />
         </label>
 
@@ -275,31 +267,31 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
             type="checkbox"
             checked={values.featured}
             onChange={(event) => update("featured", event.target.checked)}
-            className="h-4 w-4 accent-[#20211f]"
+            className="h-4 w-4 accent-gold"
           />
           Featured project
         </label>
       </div>
 
-      <div className="rounded border border-dashed border-[#c3bdb2] bg-white p-4">
+      <div className="rounded border border-dashed border-line bg-surface p-4">
         <p className="text-sm font-semibold">Project photos*</p>
-        <label className="mt-3 flex min-h-20 cursor-pointer items-center justify-center gap-2 border border-dashed border-[#c3bdb2] bg-[#f8f5f1] px-4 py-5 text-sm text-[#716e66] hover:border-[#9d784a]">
+        <label className="mt-3 flex min-h-20 cursor-pointer items-center justify-center gap-2 border border-dashed border-line bg-surface px-4 py-5 text-sm text-muted hover:border-gold">
           <Upload size={17} />
           <span>Select multiple images</span>
-          <input type="file" multiple accept="image/jpeg,image/png,image/webp" onChange={handleFileInput} className="hidden" />
+          <input type="file" multiple accept="image/jpeg,image/png,image/webp" onChange={handleFileInput} className="sr-only" />
         </label>
 
         {(existingImages.length || queuedFiles.length) > 0 && (
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
             {existingImages.map((image) => (
-              <div key={image.id} className="relative overflow-hidden border border-[#d8d2c8] bg-[#f1eee9]">
+              <div key={image.id} className="relative overflow-hidden border border-line bg-surface">
                 <div className="relative aspect-[1.1]">
                   <Image src={image.image_url} alt={image.alt_text ?? "Project image"} fill unoptimized className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
                 </div>
                 <button
                   type="button"
                   onClick={() => removeExistingImage(image)}
-                  className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-[#20211f]/80 text-white"
+                  className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-navy/80 text-ivory"
                   aria-label="Remove existing project image"
                 >
                   <X size={14} />
@@ -308,14 +300,14 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
             ))}
 
             {queuedFiles.map((file, index) => (
-              <div key={`${file.name}-${index}`} className="relative overflow-hidden border border-[#d8d2c8] bg-[#f1eee9]">
+              <div key={`${file.name}-${index}`} className="relative overflow-hidden border border-line bg-surface">
                 <div className="relative aspect-[1.1]">
                   <Image src={URL.createObjectURL(file)} alt={file.name} fill unoptimized className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
                 </div>
                 <button
                   type="button"
                   onClick={() => setQueuedFiles((current) => current.filter((_, itemIndex) => itemIndex !== index))}
-                  className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-[#20211f]/80 text-white"
+                  className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-navy/80 text-ivory"
                   aria-label="Remove selected project image"
                 >
                   <X size={14} />
@@ -327,16 +319,16 @@ export function ProjectForm({ project, onSaved, onCancel }: { project?: Project;
       </div>
 
       {error && (
-        <p role="alert" className="border border-[#d8b6ad] bg-[#f6e9e5] px-4 py-3 text-sm text-[#8a4d42]">
+        <p role="alert" className="border border-danger bg-danger-surface px-4 py-3 text-sm text-danger">
           {error}
         </p>
       )}
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <button type="button" onClick={onCancel} className="h-11 px-5 text-sm font-semibold text-[#20211f]">
+        <button type="button" onClick={onCancel} className="h-11 px-5 text-sm font-semibold text-ivory">
           Cancel
         </button>
-        <button type="submit" disabled={pending} className="flex h-11 items-center justify-center gap-2 bg-[#20211f] px-5 text-sm font-semibold text-[#f7f4ee] disabled:cursor-not-allowed disabled:opacity-70">
+        <button type="submit" disabled={pending} className="flex h-11 items-center justify-center gap-2 button-primary px-5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-70">
           {pending ? <><LoaderCircle size={16} className="animate-spin" /> Saving...</> : project ? "Save changes" : "Create project"}
         </button>
       </div>

@@ -1,8 +1,15 @@
+import type { HomepageContent } from "@/lib/homepage-content";
 import type { ProductCategory } from "@/lib/constants";
 
 export type Database = {
   public: {
     Tables: {
+      homepage_content: {
+        Relationships: [];
+        Row: { id: number; content: HomepageContent; revision: number; updated_at: string };
+        Insert: { id?: number; content: HomepageContent; revision?: number; updated_at?: string };
+        Update: { content?: HomepageContent };
+      };
       products: {
         Relationships: [];
         Row: {

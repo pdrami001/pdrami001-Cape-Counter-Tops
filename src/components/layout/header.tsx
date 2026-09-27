@@ -11,6 +11,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -49,7 +50,11 @@ export function Header() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#08131f]/95 text-[#f7f4ee] backdrop-blur-md"
+      onFocusCapture={() => setHidden(false)}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) { setOpen(false); menuButton.current?.focus(); }
+      }}
+      className="marble-bg fixed inset-x-0 top-0 z-50 border-b border-line text-ivory shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
       style={{
         transform: hidden ? "translateY(-105%)" : "translateY(0)",
         transition: "transform 220ms ease, opacity 220ms ease",
@@ -57,20 +62,25 @@ export function Header() {
       }}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:h-[76px] sm:px-6 lg:h-[82px] lg:px-10">
-        <Link href="/" className="group flex items-center" onClick={() => setOpen(false)} aria-label="Cape Counter Tops home">
+        <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setOpen(false)} aria-label="Cape Counter Tops home">
           <Image
-            src="/cape-counter-tops-logo-new.png"
-            alt="Cape Counter Tops"
-            width={1983}
-            height={793}
+            src="/icon.svg"
+            alt="CCT"
+            width={52}
+            height={52}
             priority
-            className="h-auto w-[150px] shrink-0 object-contain sm:w-[170px] lg:w-[190px]"
+            className="size-10 shrink-0 sm:size-12"
           />
+          <span className="min-w-0 leading-tight">
+            <span className="block whitespace-nowrap font-serif text-[11px] text-ivory sm:text-sm lg:text-base">CAPE COUNTER TOPS</span>
+            <span className="mt-1 hidden whitespace-nowrap text-[8px] font-medium uppercase tracking-[0.13em] text-gold sm:block">Timeless beauty · lasting quality</span>
+            <span className="mt-1 hidden whitespace-nowrap text-[7px] font-medium uppercase tracking-[0.12em] text-muted lg:block">Granite | Quartz | Sintered Stone</span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
           {siteConfig.navigation.map((item) => (
-            <Link key={item.href} href={item.href} className="text-sm font-medium text-[#d7d2c8] transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a77a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08131f]">
+            <Link key={item.href} href={item.href} className="nav-link text-sm font-medium text-muted transition hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy">
               {item.label}
             </Link>
           ))}
@@ -81,21 +91,30 @@ export function Header() {
         </div>
 
         <button
+          ref={menuButton}
           type="button"
           aria-expanded={open}
           aria-controls="mobile-navigation"
           aria-label={open ? "Close navigation" : "Open navigation"}
           onClick={() => setOpen((value) => !value)}
-          className="flex size-11 items-center justify-center rounded-full border border-white/20 text-[#f7f4ee] transition hover:border-[#d9c29a] hover:text-[#f2e8d7] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c6a77a] lg:hidden"
+          className="flex size-11 items-center justify-center rounded-full border border-line text-ivory transition hover:border-gold hover:text-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:hidden"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       {open && (
-        <nav id="mobile-navigation" className="border-t border-white/10 bg-[#08131f] px-4 pb-6 pt-3 lg:hidden" aria-label="Mobile navigation">
+        <nav id="mobile-navigation" className="marble-bg max-h-[calc(100dvh-var(--header-height))] overflow-y-auto border-t border-line px-4 pb-6 pt-3 lg:hidden" aria-label="Mobile navigation">
+          <div className="flex items-center gap-3 border-b border-line pb-4 pt-1">
+            <Image src="/icon.svg" alt="CCT" width={44} height={44} className="size-11 shrink-0" />
+            <span className="leading-tight">
+              <span className="block font-serif text-sm text-ivory">CAPE COUNTER TOPS</span>
+              <span className="mt-1 block text-[8px] font-medium uppercase tracking-[0.13em] text-gold">Timeless beauty · lasting quality</span>
+              <span className="mt-1 block text-[7px] font-medium uppercase tracking-[0.12em] text-muted">Granite | Quartz | Sintered Stone</span>
+            </span>
+          </div>
           {siteConfig.navigation.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="block border-b border-white/10 py-4 text-sm font-medium text-[#f0ece5] transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a77a] focus-visible:ring-inset">
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="block border-b border-line py-4 text-sm font-medium text-muted transition hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-inset">
               {item.label}
             </Link>
           ))}

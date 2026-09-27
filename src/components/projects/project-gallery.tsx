@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { ProjectImage } from "@/types/project";
 
 export function ProjectGallery({ images }: { images: ProjectImage[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const opener = useRef<HTMLButtonElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -26,9 +28,9 @@ export function ProjectGallery({ images }: { images: ProjectImage[] }) {
 
   const grid = useMemo(() => {
     if (images.length === 1) return "grid-cols-1";
-    if (images.length === 2) return "grid-cols-2";
-    if (images.length === 3) return "grid-cols-3";
-    return "grid-cols-2 lg:grid-cols-3";
+    if (images.length === 2) return "grid-cols-1 sm:grid-cols-2";
+    if (images.length === 3) return "grid-cols-1 sm:grid-cols-3";
+    return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
   }, [images.length]);
 
   if (!images.length) {
@@ -42,11 +44,12 @@ export function ProjectGallery({ images }: { images: ProjectImage[] }) {
           <button
             key={image.id}
             type="button"
-            onClick={() => {
+            onClick={(event) => {
+              opener.current = event.currentTarget;
               setActiveIndex(index);
               setIsOpen(true);
             }}
-            className="group relative aspect-[1.1] overflow-hidden border border-[#d8d2c8] bg-[#e8e1d8] text-left"
+            className="group relative aspect-[1.1] overflow-hidden border border-line bg-surface text-left"
             aria-label={`Open image ${index + 1}`}
           >
             <Image
@@ -62,55 +65,61 @@ export function ProjectGallery({ images }: { images: ProjectImage[] }) {
       </div>
 
       {isOpen && activeImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#20211f]/90 p-3 sm:p-6" role="dialog" aria-modal="true" aria-label="Project image viewer">
-          <div className="relative w-full max-w-5xl">
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              aria-label="Close project gallery"
-              className="absolute -right-2 -top-12 z-10 flex size-11 items-center justify-center rounded-full border border-white/20 bg-[#20211f]/80 text-white"
-            >
-              <X size={20} />
-            </button>
+        <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+          <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-[60] bg-navy/95" />
+          <Dialog.Content aria-describedby={undefined} onCloseAutoFocus={(event) => { event.preventDefault(); opener.current?.focus(); }} className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto p-3 sm:p-6">
+            <Dialog.Title className="sr-only">Project image viewer</Dialog.Title>
+            <div className="relative w-full max-w-5xl pt-14">
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                aria-label="Close project gallery"
+                className="absolute right-0 top-0 z-10 flex size-11 items-center justify-center rounded-full border border-line bg-navy/80 text-ivory"
+              >
+                <X size={20} />
+              </button>
 
-            <div className="relative overflow-hidden border border-white/10 bg-[#12110f]">
-              <div className="relative aspect-[4/3] w-full">
-                <Image
-                  src={activeImage.image_url}
-                  alt={activeImage.alt_text ?? "Project gallery image"}
-                  fill
-                  unoptimized
-                  className="object-contain"
-                  sizes="100vw"
-                />
+              <div className="relative overflow-hidden border border-line bg-navy">
+                <div className="relative h-[65dvh] w-full">
+                  <Image
+                    src={activeImage.image_url}
+                    alt={activeImage.alt_text ?? "Project gallery image"}
+                    fill
+                    unoptimized
+                    className="object-contain"
+                    sizes="100vw"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-4 flex items-center justify-between gap-3 text-sm text-ivory">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex((current) => (current - 1 + images.length) % images.length)}
+                    aria-label="Previous image"
+                    className="flex size-11 items-center justify-center rounded-full border border-line bg-navy/80"
+                  >
+                    <ChevronLeft size={18} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex((current) => (current + 1) % images.length)}
+                    aria-label="Next image"
+                    className="flex size-11 items-center justify-center rounded-full border border-line bg-navy/80"
+                  >
+                    <ChevronRight size={18} />
+                  </button>
+                </div>
+                <p className="text-xs uppercase tracking-[0.18em] text-muted">
+                  {activeIndex + 1} / {images.length}
+                </p>
               </div>
             </div>
-
-            <div className="mt-4 flex items-center justify-between gap-3 text-sm text-white">
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setActiveIndex((current) => (current - 1 + images.length) % images.length)}
-                  aria-label="Previous image"
-                  className="flex size-11 items-center justify-center rounded-full border border-white/20 bg-[#20211f]/80"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveIndex((current) => (current + 1) % images.length)}
-                  aria-label="Next image"
-                  className="flex size-11 items-center justify-center rounded-full border border-white/20 bg-[#20211f]/80"
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-              <p className="text-xs uppercase tracking-[0.18em] text-[#e1d8c5]">
-                {activeIndex + 1} / {images.length}
-              </p>
-            </div>
-          </div>
-        </div>
+          </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
       )}
     </>
   );

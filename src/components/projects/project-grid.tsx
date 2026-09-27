@@ -16,8 +16,8 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
 
   return (
     <div>
-      <div className="mb-8 flex flex-col gap-4 border-y border-[#dcd8cf] py-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#7e796f]">
+      <div className="mb-8 flex flex-col gap-4 border-y border-line py-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-muted">
           <SlidersHorizontal size={15} />
           Filter projects
         </div>
@@ -29,9 +29,10 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
             <button
               key={option.value}
               type="button"
+              aria-pressed={type === option.value}
               onClick={() => setType(option.value as "All" | Project["project_type"])}
               className={`whitespace-nowrap rounded-full px-3 py-2 text-xs font-semibold transition ${
-                type === option.value ? "bg-[#20211f] text-white" : "border border-[#d0cbc1] text-[#716e66] hover:text-[#20211f]"
+                type === option.value ? "bg-gold text-navy" : "border border-line text-muted hover:text-ivory"
               }`}
             >
               {option.label}
@@ -47,9 +48,9 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
           ))}
         </div>
       ) : (
-        <div className="border border-dashed border-[#cfc9bf] px-6 py-16 text-center">
-          <h3 className="font-serif text-2xl text-[#272824]">No projects found.</h3>
-          <p className="mt-2 text-sm text-[#716e66]">
+        <div className="border border-dashed border-line px-6 py-16 text-center">
+          <h3 className="font-serif text-2xl text-ivory">No projects found.</h3>
+          <p className="mt-2 text-sm text-muted">
             Our project gallery is being updated. Contact us on WhatsApp to see our latest work.
           </p>
         </div>

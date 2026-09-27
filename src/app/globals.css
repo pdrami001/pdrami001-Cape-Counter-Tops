@@ -1,53 +1,119 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f4ee;
-  --foreground: #272824;
-  --muted: #5f5a52;
-  --muted-strong: #4d4a45;
-  --panel: #fbfaf7;
-  --panel-soft: #f0ece4;
-  --line: #d9d1c5;
-  --navy: #20211f;
-  --navy-soft: #2b2d2b;
-  --stone: #c6a77a;
-  --stone-deep: #9d7d52;
+  color-scheme: dark;
+  --background: #10100F;
+  --surface: #191816;
+  --elevated: #24211E;
+  --gold: #D4AD76;
+  --gold-muted: #B8915E;
+  --foreground: #F5F0E8;
+  --muted: #C5BEB5;
+  --line: rgba(212, 173, 118, 0.35);
+  --success: #A9D9BB;
+  --success-surface: #193C30;
+  --danger: #F0B5A9;
+  --danger-surface: #452B2D;
   --header-height: 72px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-navy: var(--background);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-gold: var(--gold);
+  --color-gold-muted: var(--gold-muted);
+  --color-ivory: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-success: var(--success);
+  --color-success-surface: var(--success-surface);
+  --color-danger: var(--danger);
+  --color-danger-surface: var(--danger-surface);
   --font-sans: "Avenir Next", "Segoe UI", sans-serif;
   --font-serif: Georgia, "Times New Roman", serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "Avenir Next", "Segoe UI", sans-serif;
-  letter-spacing: 0;
-  text-rendering: optimizeLegibility;
-}
-
-main, section, header, footer, nav {
-  scroll-margin-top: calc(var(--header-height) + 16px);
-}
-
-::selection {
-  background: rgba(198, 167, 122, 0.35);
-  color: var(--navy);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: "Avenir Next", "Segoe UI", sans-serif;
+    text-rendering: optimizeLegibility;
   }
+  main, section, header, footer, nav { scroll-margin-top: calc(var(--header-height) + 16px); }
+  h1, h2, h3, p, a { overflow-wrap: anywhere; }
+  button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+  button:not(:disabled), a { cursor: pointer; }
+  input, textarea, select { color: var(--foreground); accent-color: var(--gold); }
+  input::placeholder, textarea::placeholder { color: var(--muted); }
+  :focus-visible { outline: 2px solid var(--gold) !important; outline-offset: 4px; }
+  label:has(input[type="file"]:focus-visible) { outline: 2px solid var(--gold); outline-offset: 4px; }
+  ::selection { background: var(--gold); color: var(--background); }
+}
 
+@layer components {
+  .editor-input {
+    display: block; width: 100%; min-width: 0; margin-top: .5rem;
+    border: 1px solid var(--line); border-radius: .5rem;
+    background: var(--background); color: var(--foreground);
+    padding: .75rem; font-weight: 400;
+  }
+  .button-primary, .button-secondary {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--gold);
+    padding: .75rem 1.25rem;
+    font-size: .875rem;
+    font-weight: 600;
+    transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+  }
+  .button-primary { background: var(--gold); color: var(--background); }
+  .button-primary:hover { background: var(--foreground); border-color: var(--foreground); }
+  .button-secondary { background: transparent; color: var(--foreground); border-color: var(--line); }
+  .button-secondary:hover { background: var(--surface); border-color: var(--gold); }
+  .marble-bg {
+    background-color: var(--background);
+    background-image: url("/dark-marble.svg");
+    background-position: center;
+    background-size: cover;
+  }
+  .nav-link { position: relative; }
+  .nav-link::after {
+    position: absolute;
+    right: 0;
+    bottom: -0.55rem;
+    left: 0;
+    height: 1px;
+    background: var(--gold);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 180ms ease;
+  }
+  .nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+  .stone-granite {
+    background: radial-gradient(ellipse at 20% 30%, #494139, transparent 60%), var(--surface);
+  }
+  .stone-quartz {
+    background: radial-gradient(ellipse at 75% 24%, #635b50, transparent 46%), var(--surface);
+  }
+  .stone-sintered {
+    background: radial-gradient(ellipse at 36% 70%, #625547, transparent 42%), var(--surface);
+  }
+}
+
+@media (min-width: 640px) { :root { --header-height: 76px; } }
+@media (min-width: 1024px) { :root { --header-height: 82px; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

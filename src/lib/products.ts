@@ -1,3 +1,4 @@
+import { getAdminClient } from "@/lib/admin";
 import { cache } from "react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Product } from "@/types/product";
@@ -30,17 +31,5 @@ export async function getProductBySlug(slug: string) {
 }
 
 export async function isAdminUser() {
-  const supabase = await createSupabaseServerClient();
-  if (!supabase) return false;
-
-  const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) return false;
-
-  const { data: admin } = await supabase
-    .from("admin_users")
-    .select("user_id")
-    .eq("user_id", userData.user.id)
-    .maybeSingle();
-
-  return Boolean(admin);
+  return Boolean(await getAdminClient());
 }
