@@ -9,13 +9,14 @@ export function Footer() {
     <footer className="bg-navy text-ivory">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.4fr_0.8fr_1fr] lg:px-10 lg:py-18">
         <div>
-          <Link href="/" className="mb-5 inline-flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
-            <Image src="/icon.svg" alt="CCT" width={56} height={56} className="size-14" />
-            <span className="leading-tight">
-              <span className="block font-serif text-base text-ivory">CAPE COUNTER TOPS</span>
-              <span className="mt-1 block text-[9px] font-medium uppercase tracking-[0.13em] text-gold">Timeless beauty · lasting quality</span>
-              <span className="mt-1 block text-[8px] font-medium uppercase tracking-[0.12em] text-muted">Granite | Quartz | Sintered Stone</span>
-            </span>
+          <Link href="/" className="mb-5 inline-flex items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
+            <Image
+              src="/images/cape-counter-tops-logo-transparent.png"
+              alt="Cape Counter Tops"
+              width={2171}
+              height={724}
+              className="h-12 w-auto sm:h-14 lg:h-16"
+            />
           </Link>
           <p className="max-w-sm text-sm leading-7 text-muted">Granite, quartz and sintered stone surfaces for refined residential and commercial spaces.</p>
           <div className="mt-5 flex items-center gap-2 text-xs text-muted">
