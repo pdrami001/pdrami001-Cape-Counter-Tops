@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.capecountertops.co.za"),
   title: {
     default: "Cape Counter Tops | Granite, Quartz & Sintered Stone",
     template: "%s | Cape Counter Tops",

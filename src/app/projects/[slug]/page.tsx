@@ -23,6 +23,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${project.title} | Cape Counter Tops`,
     description: project.description ?? `View this completed ${project.project_type.toLowerCase()} installation by Cape Counter Tops.`,
+    alternates: {
+      canonical: `/projects/${encodeURIComponent(project.slug)}`,
+    },
   };
 }
 

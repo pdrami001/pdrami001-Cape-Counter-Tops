@@ -1,4 +1,5 @@
 ﻿import { ArrowUpRight, Building2, Check, Gem, Hammer, Layers3, Mail, MapPin, Ruler, ShieldCheck, Sparkles } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
@@ -12,6 +13,12 @@ import { getHomepage } from "@/lib/homepage";
 import { getHomepageFallbacks } from "@/lib/homepage-content";
 import { HeroSection, MaterialCards } from "@/components/homepage/sections";
 import { siteConfig } from "@/lib/constants";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 const services = [
   ["Kitchen Countertops", Ruler],

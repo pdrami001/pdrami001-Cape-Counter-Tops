@@ -8,6 +8,9 @@ import { siteConfig } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How Cape Counter Tops handles personal information collected through enquiries, quotes and website contact.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

@@ -8,6 +8,9 @@ import { siteConfig } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Website Terms",
   description: "Terms for using the Cape Counter Tops website and requesting quotes or project information.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 export default function TermsPage() {

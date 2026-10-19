@@ -8,6 +8,9 @@ import { getProjects } from "@/lib/projects";
 export const metadata: Metadata = {
   title: "Our Work",
   description: "Explore previous Cape Counter Tops installations and transformed spaces.",
+  alternates: {
+    canonical: "/projects",
+  },
 };
 
 export default async function ProjectsPage() {
